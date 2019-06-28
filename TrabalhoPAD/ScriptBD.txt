@@ -1,0 +1,67 @@
+﻿CREATE DATABASE trabalhoPAD;
+
+
+USE trabalhoPAD;
+
+
+-- -----------------------------------------------------
+-- Tabela usuario
+-- -----------------------------------------------------
+  CREATE TABLE usuario (
+  idUsuario INT NOT NULL AUTO_INCREMENT,
+  tipoUsuario INT NOT NULL,
+  nomeUsuario VARCHAR(45) NOT NULL, 
+  email VARCHAR(45) NOT NULL,
+  senha VARCHAR(45) NOT NULL,
+
+
+  CONSTRAINT PK_usuario
+  PRIMARY KEY (idUsuario));
+
+
+-- -----------------------------------------------------
+-- Tabela jogo
+-- -----------------------------------------------------
+  CREATE TABLE jogo (
+  idJogo INT NOT NULL AUTO_INCREMENT,
+  nomeJogo VARCHAR(45) NOT NULL,
+  plataforma VARCHAR(45) NOT NULL,
+  descricao LONGTEXT,
+  mediaJogo DECIMAL(8,2),
+
+
+  CONSTRAINT PK_jogo
+  PRIMARY KEY (idJogo));
+
+
+-- -----------------------------------------------------
+-- Tabela de associacao jogoCliente
+-- -----------------------------------------------------
+  CREATE TABLE jogoCliente (
+  jogoCliente INT NOT NULL AUTO_INCREMENT,
+  notaUsuario DECIMAL(8,2),
+  favoritar BOOLEAN,
+  idUsuario INT NOT NULL,
+  idJogo INT NOT NULL,
+
+
+  CONSTRAINT PK_jogoCliente
+  PRIMARY KEY (jogoCliente),
+  
+  CONSTRAINT fk_jogoClienteUsuario
+  FOREIGN KEY (idUsuario)
+  REFERENCES usuario(idUsuario),
+
+
+  CONSTRAINT fk_jogoClienteJogo
+  FOREIGN KEY (idJogo)
+  REFERENCES jogo(idJogo));
+
+
+-- -----------------------------------------------------
+-- Inserir usuário administrador
+-- -----------------------------------------------------
+
+
+INSERT INTO usuario (tipoUsuario, nomeUsuario, email, senha) VALUES
+(1, 'Admin', 'admin@unisantos.br','admin');

@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/_template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"                
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+
+    <ui:define name="title">
+        <ui:define name="title">Jogo</ui:define>
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="form">  
+
+            <p:panelGrid columns="2" id="infoJogo" style="text-align: justify; width: 800px">
+                <p>#{msgs.nome}</p>
+                <h:outputText value="#{avaliacaoBean.jogo.nome}"/>                    
+
+                <p>#{msgs.plataforma}</p>
+                <h:outputText value="#{avaliacaoBean.jogo.plataforma}"/>
+
+                <p>#{msgs.descricao}</p>
+                <h:outputText style="width: 10px" value="#{avaliacaoBean.jogo.descricao}"/>
+
+                <p>#{msgs.avaliacao}</p>
+                <h:outputText value="#{avaliacaoBean.jogo.media}"/>
+
+                <p>#{msgs.suaAvaliacao}</p>
+                <h:outputText value="#{avaliacaoBean.jogoCliente.nota}"/>
+                <p>#{msgs.trocaAvaliacao}</p>
+                <h:inputText value="#{avaliacaoBean.jogoCliente.nota}">
+                    <f:ajax event="change" listener="#{avaliacaoBean.alterarNota}"/>
+                    <f:passThroughAttributes 
+                        value="#{avaliacaoBean.valoresDosAtributos}"/>    
+                </h:inputText>
+                <p>#{msgs.addfavorito}</p>
+                <p:selectBooleanCheckbox value="#{avaliacaoBean.jogoCliente.favorito}" >                                            
+                    <f:ajax event="change" listener="#{avaliacaoBean.alterarNota}"/>
+                </p:selectBooleanCheckbox>
+            </p:panelGrid>
+
+            <p:commandButton value="#{msgs.voltar}" ajax="false"
+                             icon="ui-icon-home" iconPos="right"
+                             action="#{avaliacaoBean.atualizar}" 
+                             immediate = "true"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

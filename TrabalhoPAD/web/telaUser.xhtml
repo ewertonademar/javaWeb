@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/_template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="content">
+        <h:form>
+            <p:menuButton value="Menu">
+                <p:menuitem value="#{msgs.perfil}" action="/telaPerfil" />
+                <p:menuitem value="#{msgs.verJogos}" action="/telaUser" />
+                <p:separator/>
+                <p:menuitem value="#{msgs.sair}" action="#{usuarioBean.sair}" icon="ui-icon-closethick"/>
+            </p:menuButton>
+        </h:form>
+        <h:form id="form" enctype="multipart/form-data">
+            <p:growl id="message" showDetail="true"/>
+            <p:dataTable value="#{avaliacaoBean.jogos}" var="j"
+                         paginator="true" rows="5" paginatorPosition="top"
+                         rowsPerPageTemplate="5,10,15" sortMode="multiple"
+                         editable="true">
+                <p:column headerText="#{msgs.nome}" sortBy="#{j.nome}"
+                          filterBy="#{j.nome}" filterMatchMode="contains">
+                    <center>
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                #{j.nome}
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText value="#{j.nome}" required="true"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </center>
+                </p:column>
+                <p:column headerText="#{msgs.plataforma}">
+                    <center>
+                        #{j.plataforma}
+                    </center>
+                </p:column>
+                <p:column headerText="#{msgs.avaliacao}">
+                    <center>
+                        #{j.media}
+                    </center>
+                </p:column>
+                <p:column headerText="#{msgs.visualizar}">
+                    <center>
+                        <p:commandButton value="#{msgs.visualizar}" ajax="false" 
+                                         action="#{avaliacaoBean.carregaTelaJogo(j.id)}"/>
+                    </center>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

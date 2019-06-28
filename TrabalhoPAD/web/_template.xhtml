@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+        <title><ui:insert name="title">Template Cadastro</ui:insert></title>
+    </h:head>
+
+    <h:body>
+        <div id="top">
+            <center>
+                <ui:insert name="top">
+                    <h:graphicImage library="logo" 
+                                    name="Logo.png" height="150" 
+                                    width="150" styleClass="center_block"/>
+                </ui:insert>
+            </center>
+        </div>
+        <div id="content" class="center_content">
+            <center>
+                <ui:insert name="content">Content</ui:insert>
+            </center>
+        </div>
+        <div id="bottom">
+            <ui:insert name="bottom">
+                <center>
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="#{msgs.idioma}:" for="idioma"/>
+                        <h:selectOneMenu onchange="submit()" id="idioma"
+                                         value="#{idioma.localizacao}" 
+                                         valueChangeListener="#{idioma.mudouIdioma}"
+                                         converter="converter.LocalizacaoConverter">
+                            <f:selectItems value="#{idioma.idiomasSuportados}"/>
+                        </h:selectOneMenu>       
+                    </h:panelGrid>
+                </h:form> 
+                    <ui:include src="/componentes.xhtml"/>
+                </center>
+            </ui:insert>
+        </div>
+    </h:body>
+</html>
